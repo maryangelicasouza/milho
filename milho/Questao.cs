@@ -20,24 +20,24 @@ public class Questao
 
     Label labelpergunta;
 
-   Button buttonresposta1;
+   Button buttonResposta1;
 
-   Button buttonresposta2;
+   Button buttonResposta2;
 
-   Button buttonresposta3;
+   Button buttonResposta3;
 
-   Button buttonresposta4;
+   Button buttonResposta4;
 
-   Button buttonresposta5;
+   Button buttonResposta5;
 
       public void ConfiguraEstruturaDesenho (Label labelpergunta, Button button1, Button button2, Button button3, Button button4, Button button5)
         {
-            Labelpergunta = labelpergunta;
-            ButtonResposta1 = button1;
-            ButtonResposta2 = button2;
-            ButtonResposta3 = button3;
-            ButtonResposta4 = button4;
-            ButtonResposta5 = button5;
+            labelpergunta = pergunta;
+            buttonResposta1 =  pergunta1;
+            buttonResposta2 =  pergunta2;
+            buttonResposta3 =  pergunta3;
+            buttonResposta4 =  pergunta4;
+            buttonResposta5 =  pergunta5;
         }
 
 public void Desenhar()
@@ -47,7 +47,7 @@ public void Desenhar()
             ButtonResposta2.Text = Resposta2;
             ButtonResposta3.Text = Resposta3;
             ButtonResposta4.Text = Resposta4;
-            ButtonResposta5.Text = Resposta5;
+            ButtonResposta5.Text = resposta5;
 }
   private Button QualBTN(int RespostaSelecionada)
         {
