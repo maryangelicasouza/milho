@@ -65,7 +65,7 @@
                       Grid.Row="6"
                       Grid.Column="0"
                       Grid.ColumnSpan="3"/>
-              <ImageButton Source="Cartas.png"
+              <ImageButton Source="cartas.png"
                            Padding="10,10,10,10"
                            x:Name="ButtonCartas"
                            BackgroundColor="White"
