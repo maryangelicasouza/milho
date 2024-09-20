@@ -1,4 +1,4 @@
-﻿﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="milho.MainPage"
@@ -36,35 +36,35 @@
                      Grid.Column="0"
                      Grid.ColumnSpan="3"/>
               <Button x:Name="Button1"
-                      Clicked="Onbotaoresp1Clicked"
+                      Clicked="Clicked01"
                       BackgroundColor="#4287f5"
                       FontSize="12"
                       Grid.Row="2"
                       Grid.Column="0"
                       Grid.ColumnSpan="3"/>
               <Button x:Name="Button2"
-                      Clicked="Onbotaoresp2Clicked"
+                      Clicked="Clicked02"
                       BackgroundColor="#4287f5"
                       FontSize="12"
                       Grid.Row="3"
                       Grid.Column="0"
                       Grid.ColumnSpan="3"/>
               <Button x:Name="Button3"
-                      Clicked="Onbotaoresp3Clicked"
+                      Clicked="Clicked03"
                       BackgroundColor="#4287f5"
                       FontSize="12"
                       Grid.Row="4"
                       Grid.Column="0"
                       Grid.ColumnSpan="3"/>
               <Button x:Name="Button4"
-                      Clicked="Onbotaoresp4Clicked"
+                      Clicked="Clicked04"
                       BackgroundColor="#4287f5"
                       FontSize="12"
                       Grid.Row="5"
                       Grid.Column="0"
                       Grid.ColumnSpan="3"/>
               <Button x:Name="Button5"
-                      Clicked="Onbotaoresp4"
+                      Clicked="Clicked05"
                       BackgroundColor="#4287f5"
                       FontSize="12"
                       Grid.Row="6"

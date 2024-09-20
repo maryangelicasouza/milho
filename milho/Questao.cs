@@ -1,7 +1,8 @@
 namespace milho;
 
-public class Questao 
+public class Questao
 {
+
     public string pergunta;
 
     public string resposta1;
@@ -14,89 +15,95 @@ public class Questao
 
     public string resposta5;
 
-    public int respostacorreta;
+    public int respostacerta;
 
-    public int nível;
 
-    Label labelpergunta;
+    public int nivel;
 
-   Button buttonResposta1;
+    Label labelPergunta;
 
-   Button buttonResposta2;
+    Button buttonResposta1;
 
-   Button buttonResposta3;
+    Button buttonResposta2;
 
-   Button buttonResposta4;
+    Button buttonResposta3;
 
-   Button buttonResposta5;
+    Button buttonResposta4;
 
-      public void ConfiguraEstruturaDesenho (Label labelpergunta, Button button1, Button button2, Button button3, Button button4, Button button5)
+    Button buttonResposta5;
+
+
+    public void Desenhar()
+    {
+        labelPergunta.Text = pergunta;
+        buttonResposta1.Text = resposta1;
+        buttonResposta2.Text = resposta2;
+        buttonResposta3.Text = resposta3;
+        buttonResposta4.Text = resposta4;
+        buttonResposta5.Text = resposta5;
+        
+    }
+
+    private Button buttonEscolhido(int respostaescolhida)
+    {
+        if (respostaescolhida == 1)
+            return buttonResposta1;
+        else if (respostaescolhida == 2)
+            return buttonResposta2;
+        else if (respostaescolhida == 3)
+            return buttonResposta3;
+        else if (respostaescolhida == 4)
+            return buttonResposta4;
+        else if (respostaescolhida == 5)
+            return buttonResposta5;
+        else 
+            return null;
+    }
+     public bool VerifiicarResposta(int respostaescolhida)
+    {
+        if (respostacerta == respostaescolhida)
         {
-            labelpergunta = pergunta;
-            buttonResposta1 =  pergunta1;
-            buttonResposta2 =  pergunta2;
-            buttonResposta3 =  pergunta3;
-            buttonResposta4 =  pergunta4;
-            buttonResposta5 =  pergunta5;
+            var verificacao = buttonEscolhido(respostaescolhida);
+            verificacao.BackgroundColor = Colors.Green;
+            verificacao.TextColor = Colors.White;
+            return true;
         }
-
-public void Desenhar()
-{
-     Labelpergunta.Text = Pergunta;
-            ButtonResposta1.Text = Resposta1;
-            ButtonResposta2.Text = Resposta2;
-            ButtonResposta3.Text = Resposta3;
-            ButtonResposta4.Text = Resposta4;
-            ButtonResposta5.Text = resposta5;
-}
-  private Button QualBTN(int RespostaSelecionada)
+        else
         {
-            if (RespostaSelecionada == 1)
-                return ButtonResposta1;
-            else if (RespostaSelecionada == 2)
-                return ButtonResposta2;
-            else if (RespostaSelecionada == 3)
-                return ButtonResposta3;
-            else if (RespostaSelecionada == 4)
-                return ButtonResposta4;
-            else if (RespostaSelecionada == 5)
-                return ButtonResposta5;
-            else
-                return null;
-
+            var verificacaoCorreto = buttonEscolhido(respostacerta);
+            var verificacaoIncorreto = buttonEscolhido(respostaescolhida);
+            verificacaoCorreto.BackgroundColor = Colors.Yellow;
+            verificacaoCorreto.TextColor = Colors.Black;
+            verificacaoIncorreto.BackgroundColor = Colors.Red;
+            verificacaoIncorreto.TextColor = Colors.White;
+            return false;
         }
-         public bool VerificaResposta(int RespostaSelecionada)
-        {
-            if (Respostacorreta == RespostaSelecionada)
-            {
-                var Button = QualBTN(RespostaSelecionada);
-                Button.BackgroundColor = Colors.Green;
-                return true;
-            }
-            else
-            {
-                var ButtonCorreto = QualBTN (Respostacorreta);
-                var ButtonIncorreto = QualBTN (RespostaSelecionada);
-                ButtonCorreto.BackgroundColor = Colors.Yellow;
-                ButtonIncorreto.BackgroundColor = Colors.Red;
-                return false;
-            }
-        }
+    }
+    
+    public void ConfigurarEstruturaDesenho(Label pergunta, Button resposta1, Button resposta2, Button resposta3, Button resposta4, Button resposta5)
+    {
+        labelPergunta = pergunta;
+        buttonResposta1 = resposta1;
+        buttonResposta2 = resposta2;
+        buttonResposta3 = resposta3;
+        buttonResposta4 = resposta4;
+        buttonResposta5 = resposta5;
+     
+    }
 
-          public Questao()
-        {
+    public Questao()
+    {
+    }
 
-        }
-        public Questao(Label labelpergunta, Button button1, Button button2, Button button3, Button button4, Button button5)
-        {
-            Labelpergunta = labelpergunta;
-            ButtonResposta1 = button1;
-            ButtonResposta2 = button2;
-            ButtonResposta3 = button3;
-            ButtonResposta4 = button4;
-            ButtonResposta5 = button5;
-        }
-
-
+    public Questao(Label pergunta, Button resposta1, Button resposta2, Button resposta3, Button resposta4, Button resposta5)
+    {
+        labelPergunta = pergunta;
+        buttonResposta1 = resposta1;
+        buttonResposta2 = resposta2;
+        buttonResposta3 = resposta3;
+        buttonResposta4 = resposta4;
+        buttonResposta5 = resposta5;
+     
+    }
 
 }
