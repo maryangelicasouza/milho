@@ -52,7 +52,7 @@
                      FontSize="14"
                      Grid.Row="2"
                      Grid.Column="0"
-                     Grid.ColumnSpan="2"/>
+                     Grid.ColumnSpan="3"/>
                      
               <Button x:Name="Button1"
                       Clicked="Clicked01"
