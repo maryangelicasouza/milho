@@ -3,8 +3,8 @@ namespace milho;
 public class Gerenciador
 {
 
-  List<Questao> ListaQuestoes = new List<Questao>();
-  List<int> ListaQuestoesRespondidas = new List<int>();
+  List<Questao> ListaTodasQuestoes = new List<Questao>();
+  List<Questao> ListaTodasQuestoesRespondidas = new List<Questao>();
   Questao questaoCorrente;
   Label labelPontuacao;
   Label labelNivel;
@@ -23,14 +23,32 @@ public class Gerenciador
 
   public void ProximaPergunta()
   {
-    var numRandomico = Random.Shared.Next(0, ListaQuestoes.Count - 1);
-    while (ListaQuestoesRespondidas.Contains(numRandomico))
-      numRandomico = Random.Shared.Next(0, ListaQuestoes.Count - 1);
-    ListaQuestoesRespondidas.Add(numRandomico);
-    questaoCorrente = ListaQuestoes[numRandomico];
+    varListaQuestoes = ListaTodasQuestoes.Where( d.NIvelresposta == NivelAtual).ToList();
+    var numRandomico = Random.Shared.Next(0,ListaTodasQuestoes.Count -1);
+
+    QuestaoAtual = ListaTodasQuestoes [numRandomico];
+
+    while (ListaTodasQuestoesRespondidas.Contains (QuestaoAtual))
+    {
+      numRandomico= Random.Shared.Next (0,ListaTodasQuestoes.Count -1);
+      QuestaoAtual = ListaTQuestoes [numRandomico];
+    }
+    ListaTodasQuestoesRespondidas.Add(QuestaoAtual);
+
+    QuestaoAtual.Desenhar();
+  }
+  {
+    var numRandomico = Random.Shared.Next(0, ListaTodasQuestoes.Count - 1);
+    while (ListaTodasQuestoesRespondidas.Contains(numRandomico))
+      numRandomico = Random.Shared.Next(0, ListaTodasQuestoes.Count - 1);
+    ListaTodasQuestoesRespondidas.Add(numRandomico);
+    questaoCorrente = ListaTodasQuestoes[numRandomico];
     questaoCorrente.Desenhar();
   }
   int NivelCorrente = 0;
+
+
+
   public async void VerificarCorreto(int resposta)
   {
     if (questaoCorrente!.VerifiicarResposta(resposta))
@@ -51,6 +69,7 @@ public class Gerenciador
       await App.Current.MainPage.DisplayAlert("Você errou", "Desistir é para os fracos o ideal é nem tentar,mas você pode tentar de novo", "tentar novante");
       Inicializar();
     }
+   
 
 
     void AdicionaPontuacao(int n)
@@ -104,7 +123,7 @@ public class Gerenciador
     Q1.respostacerta = 3;
     Q1.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
 
-    ListaQuestoes.Add(Q1);
+    ListaTodasQuestoes.Add(Q1);
 
     var Q2 = new Questao();
     Q2.Nivel = 3;
@@ -118,7 +137,7 @@ public class Gerenciador
     ;
     Q2.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
 
-    ListaQuestoes.Add(Q2);
+    ListaTodasQuestoes.Add(Q2);
 
     var Q3 = new Questao();
     Q3.Nivel = 3;
@@ -131,7 +150,7 @@ public class Gerenciador
     Q3.respostacerta = 2;
 
     Q3.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-    ListaQuestoes.Add(Q3);
+    ListaTodasQuestoes.Add(Q3);
 
     var Q4 = new Questao();
     Q4.Nivel = 2;
@@ -144,7 +163,7 @@ public class Gerenciador
     Q4.respostacerta = 2;
 
     Q4.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-    ListaQuestoes.Add(Q4);
+    ListaTodasQuestoes.Add(Q4);
 
     var Q5 = new Questao();
     Q5.Nivel = 1;
@@ -157,7 +176,7 @@ public class Gerenciador
     Q5.respostacerta = 3;
 
     Q5.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-    ListaQuestoes.Add(Q5);
+    ListaTodasQuestoes.Add(Q5);
 
     var Q6 = new Questao();
     Q6.Nivel = 1;
@@ -170,7 +189,7 @@ public class Gerenciador
     Q6.respostacerta = 2;
 
     Q6.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-    ListaQuestoes.Add(Q6);
+    ListaTodasQuestoes.Add(Q6);
 
     var Q7 = new Questao();
     Q7.Nivel = 1;
@@ -182,7 +201,7 @@ public class Gerenciador
     Q7.resposta5 = "Filipinas";
     Q7.respostacerta = 2;
     Q7.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-    ListaQuestoes.Add(Q7);
+    ListaTodasQuestoes.Add(Q7);
 
     var Q8 = new Questao();
     Q8.Nivel = 1;
@@ -195,7 +214,7 @@ public class Gerenciador
     Q8.respostacerta = 4;
 
     Q8.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-    ListaQuestoes.Add(Q8);
+    ListaTodasQuestoes.Add(Q8);
 
     var Q9 = new Questao();
     Q9.Nivel = 3;
@@ -208,7 +227,7 @@ public class Gerenciador
     Q9.respostacerta = 3;
 
     Q9.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-    ListaQuestoes.Add(Q9);
+    ListaTodasQuestoes.Add(Q9);
 
     var Q10 = new Questao();
     Q10.Nivel = 2;
@@ -221,7 +240,7 @@ public class Gerenciador
     Q10.respostacerta = 5;
 
     Q10.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-    ListaQuestoes.Add(Q10);
+    ListaTodasQuestoes.Add(Q10);
 
     var Q11 = new Questao();
     Q11.Nivel = 1;
@@ -234,7 +253,7 @@ public class Gerenciador
     Q11.respostacerta = 2;
 
     Q11.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-    ListaQuestoes.Add(Q11);
+    ListaTodasQuestoes.Add(Q11);
 
     var Q12 = new Questao();
     Q12.Nivel = 2;
@@ -247,7 +266,7 @@ public class Gerenciador
     Q12.respostacerta = 2;
 
     Q12.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-    ListaQuestoes.Add(Q12);
+    ListaTodasQuestoes.Add(Q12);
 
 var Q13 = new Questao();
     Q13.Nivel = 2;
@@ -260,7 +279,7 @@ var Q13 = new Questao();
     Q13.respostacerta = 2;
 
     Q13.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-    ListaQuestoes.Add(Q13);
+    ListaTodasQuestoes.Add(Q13);
 
     var Q14 = new Questao();
 Q14.Nivel = 1;
@@ -273,7 +292,7 @@ Q14.resposta5 = "Vaca";
 Q14.respostacerta = 2;
 
 Q14.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q14);
+ListaTodasQuestoes.Add(Q14);
 
 var Q15 = new Questao();
 Q15.Nivel = 1;
@@ -286,7 +305,7 @@ Q15.resposta5 = "Laranja";
 Q15.respostacerta = 2;
 
 Q15.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q15);
+ListaTodasQuestoes.Add(Q15);
 
 var Q16 = new Questao();
 Q16.Nivel = 1;
@@ -299,7 +318,7 @@ Q16.resposta5 = "6";
 Q16.respostacerta = 3;
 
 Q16.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q16);
+ListaTodasQuestoes.Add(Q16);
 
 var Q17 = new Questao();
 Q17.Nivel = 1;
@@ -312,7 +331,7 @@ Q17.resposta5 = "Nenhuma";
 Q17.respostacerta = 4;
 
 Q17.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q17);
+ListaTodasQuestoes.Add(Q17);
 
 var Q18 = new Questao();
 Q18.Nivel = 1;
@@ -325,7 +344,7 @@ Q18.resposta5 = "Frutas";
 Q18.respostacerta = 2;
 
 Q18.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q18);
+ListaTodasQuestoes.Add(Q18);
 
 var Q19 = new Questao();
 Q19.Nivel = 2;
@@ -338,7 +357,7 @@ Q19.resposta5 = "Tuvalu";
 Q19.respostacerta = 2;
 
 Q19.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q19);
+ListaTodasQuestoes.Add(Q19);
 
 var Q20 = new Questao();
 Q20.Nivel = 2;
@@ -351,7 +370,7 @@ Q20.resposta5 = "Pimenta";
 Q20.respostacerta = 3;
 
 Q20.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q20);
+ListaTodasQuestoes.Add(Q20);
 
 var Q21 = new Questao();
 Q21.Nivel = 2;
@@ -364,7 +383,7 @@ Q21.resposta5 = "Donatello";
 Q21.respostacerta = 3;
 
 Q21.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q21);
+ListaTodasQuestoes.Add(Q21);
 
 var Q22 = new Questao();
 Q22.Nivel = 2;
@@ -377,7 +396,7 @@ Q22.resposta5 = "Pulmões";
 Q22.respostacerta = 3;
 
 Q22.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q22);
+ListaTodasQuestoes.Add(Q22);
 
 var Q23 = new Questao();
 Q23.Nivel = 2;
@@ -390,7 +409,7 @@ Q23.resposta5 = "Fermentação";
 Q23.respostacerta = 2;
 
 Q23.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q23);
+ListaTodasQuestoes.Add(Q23);
 
 var Q24 = new Questao();
 Q24.Nivel = 2;
@@ -403,7 +422,7 @@ Q24.resposta5 = "Mercúrio";
 Q24.respostacerta = 1;
 
 Q24.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q24);
+ListaTodasQuestoes.Add(Q24);
 
 var Q25 = new Questao();
 Q25.Nivel = 2;
@@ -416,7 +435,7 @@ Q25.resposta5 = "Oceania";
 Q25.respostacerta = 1;
 
 Q25.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q25);
+ListaTodasQuestoes.Add(Q25);
 var Q26 = new Questao();
 Q26.Nivel = 3;
 Q26.pergunta = "Qual país é famoso pela Torre Eiffel?";
@@ -428,7 +447,7 @@ Q26.resposta5 = "Reino Unido";
 Q26.respostacerta = 2;
 
 Q26.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q26);
+ListaTodasQuestoes.Add(Q26);
 
 var Q27 = new Questao();
 Q27.Nivel = 3;
@@ -441,7 +460,7 @@ Q27.resposta5 = "Danúbio";
 Q27.respostacerta = 1;
 
 Q27.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q27);
+ListaTodasQuestoes.Add(Q27);
 
 var Q28 = new Questao();
 Q28.Nivel = 3;
@@ -454,7 +473,7 @@ Q28.resposta5 = "Caracas";
 Q28.respostacerta = 3;
 
 Q28.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q28);
+ListaTodasQuestoes.Add(Q28);
 
 var Q29 = new Questao();
 Q29.Nivel = 3;
@@ -467,7 +486,7 @@ Q29.resposta5 = "Moby Dick";
 Q29.respostacerta = 2;
 
 Q29.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q29);
+ListaTodasQuestoes.Add(Q29);
 
 var Q30 = new Questao();
 Q30.Nivel = 3;
@@ -480,7 +499,7 @@ Q30.resposta5 = "Agatha Christie";
 Q30.respostacerta = 3;
 
 Q30.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q30);
+ListaTodasQuestoes.Add(Q30);
 
 var Q31 = new Questao();
 Q31.Nivel = 3;
@@ -493,7 +512,7 @@ Q31.resposta5 = "Richard Wagner";
 Q31.respostacerta = 2;
 
 Q31.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q31);
+ListaTodasQuestoes.Add(Q31);
 
 var Q32 = new Questao();
 Q32.Nivel = 3;
@@ -506,7 +525,7 @@ Q32.resposta5 = "All You Need Is Love";
 Q32.respostacerta = 1;
 
 Q32.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q32);
+ListaTodasQuestoes.Add(Q32);
 
 var Q33 = new Questao();
 Q33.Nivel = 4;
@@ -519,7 +538,7 @@ Q33.resposta5 = "Woodstock";
 Q33.respostacerta = 1;
 
 Q33.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q33);
+ListaTodasQuestoes.Add(Q33);
 
 var Q34 = new Questao();
 Q34.Nivel = 4;
@@ -532,7 +551,7 @@ Q34.resposta5 = "George Orwell";
 Q34.respostacerta = 2;
 
 Q34.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q34);
+ListaTodasQuestoes.Add(Q34);
 
 var Q35 = new Questao();
 Q35.Nivel = 4;
@@ -545,7 +564,7 @@ Q35.resposta5 = "Petra";
 Q35.respostacerta = 3;
 
 Q35.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q35);
+ListaTodasQuestoes.Add(Q35);
 
 var Q36 = new Questao();
 Q36.Nivel = 4;
@@ -558,7 +577,7 @@ Q36.resposta5 = "O Cafe da Manhã";
 Q36.respostacerta = 1;
 
 Q36.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q36);
+ListaTodasQuestoes.Add(Q36);
 
 var Q37 = new Questao();
 Q37.Nivel = 4;
@@ -571,7 +590,7 @@ Q37.resposta5 = "O Coliseu";
 Q37.respostacerta = 1;
 
 Q37.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q37);
+ListaTodasQuestoes.Add(Q37);
 
 var Q38 = new Questao();
 Q38.Nivel = 4;
@@ -585,7 +604,7 @@ Q38.respostacerta = 3;
 
 
 Q38.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q38);
+ListaTodasQuestoes.Add(Q38);
 
 var Q39 = new Questao();
 Q39.Nivel = 4;
@@ -598,7 +617,7 @@ Q39.resposta5 = "A Noite Estrelada";
 Q39.respostacerta = 1;
 
 Q39.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q39);
+ListaTodasQuestoes.Add(Q39);
 
 var Q40 = new Questao();
 Q40.Nivel = 4;
@@ -611,7 +630,7 @@ Q40.resposta5 = "Ballet";
 Q40.respostacerta = 3;
 
 Q40.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q40);
+ListaTodasQuestoes.Add(Q40);
 
 var Q41 = new Questao();
 Q41.Nivel = 5;
@@ -624,7 +643,7 @@ Q41.resposta5 = "Abolição da escravidão";
 Q41.respostacerta = 2;
 
 Q41.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q41);
+ListaTodasQuestoes.Add(Q41);
 
 var Q42 = new Questao();
 Q42.Nivel = 5;
@@ -637,7 +656,7 @@ Q42.resposta5 = "O Tratado de Versalhes";
 Q42.respostacerta = 2;
 
 Q42.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q42);
+ListaTodasQuestoes.Add(Q42);
 
 var Q43 = new Questao();
 Q43.Nivel = 5;
@@ -650,7 +669,7 @@ Q43.resposta5 = "A criação da ONU";
 Q43.respostacerta = 1;
 
 Q43.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q43);
+ListaTodasQuestoes.Add(Q43);
 
 var Q44 = new Questao();
 Q44.Nivel = 5;
@@ -663,7 +682,7 @@ Q44.resposta5 = "Fernando Henrique Cardoso";
 Q44.respostacerta = 3;
 
 Q44.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q44);
+ListaTodasQuestoes.Add(Q44);
 
 var Q45 = new Questao();
 Q45.Nivel = 5;
@@ -676,7 +695,7 @@ Q45.resposta5 = "Tratado de Potsdam";
 Q45.respostacerta = 1;
 
 Q45.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q45);
+ListaTodasQuestoes.Add(Q45);
 
 var Q46 = new Questao();
 Q46.Nivel = 5;
@@ -689,7 +708,7 @@ Q46.resposta5 = "Colonizar a África";
 Q46.respostacerta = 2;
 
 Q46.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q46);
+ListaTodasQuestoes.Add(Q46);
 
 var Q47 = new Questao();
 Q47.Nivel = 5;
@@ -702,7 +721,7 @@ Q47.resposta5 = "Uma revolução industrial";
 Q47.respostacerta = 2;
 
 Q47.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q47);
+ListaTodasQuestoes.Add(Q47);
 
 var Q48 = new Questao();
 Q48.Nivel = 5;
@@ -715,7 +734,7 @@ Q48.resposta5 = "Zumbi dos Palmares";
 Q48.respostacerta = 4;
 
 Q48.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q48);
+ListaTodasQuestoes.Add(Q48);
 
 var Q49 = new Questao();
 Q49.Nivel = 5;
@@ -728,7 +747,7 @@ Q49.resposta5 = "Desenvolvimento econômico sustentável";
 Q49.respostacerta = 2;
 
 Q49.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q49);
+ListaTodasQuestoes.Add(Q49);
 
 var Q50 = new Questao();
 Q50.Nivel = 5;
@@ -741,7 +760,7 @@ Q50.resposta5 = "A guerra do Vietnã";
 Q50.respostacerta = 2;
 
 Q50.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q50);
+ListaTodasQuestoes.Add(Q50);
 
 var Q51 = new Questao();
 Q51.Nivel = 6;
@@ -754,7 +773,7 @@ Q51.resposta5 = "Replicação do DNA";
 Q51.respostacerta = 2;
 
 Q51.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q51);
+ListaTodasQuestoes.Add(Q51);
 
 var Q52 = new Questao();
 Q52.Nivel = 6;
@@ -767,7 +786,7 @@ Q52.resposta5 = "Quimiossíntese";
 Q52.respostacerta = 3;
 
 Q52.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q52);
+ListaTodasQuestoes.Add(Q52);
 
 var Q53 = new Questao();
 Q53.Nivel = 6;
@@ -780,7 +799,7 @@ Q53.resposta5 = "Partículas subatômicas";
 Q53.respostacerta = 1;
 
 Q53.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q53);
+ListaTodasQuestoes.Add(Q53);
 
 var Q54 = new Questao();
 Q54.Nivel = 6;
@@ -793,7 +812,7 @@ Q54.resposta5 = "Vitaminas";
 Q54.respostacerta = 4;
 
 Q54.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q54);
+ListaTodasQuestoes.Add(Q54);
 
 var Q55 = new Questao();
 Q55.Nivel = 6;
@@ -806,7 +825,7 @@ Q55.resposta5 = "Dunedin";
 Q55.respostacerta = 2;
 
 Q55.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q55);
+ListaTodasQuestoes.Add(Q55);
 
 var Q56 = new Questao();
 Q56.Nivel = 6;
@@ -819,7 +838,7 @@ Q56.resposta5 = "Cobre";
 Q56.respostacerta = 2;
 
 Q56.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q56);
+ListaTodasQuestoes.Add(Q56);
 
 var Q57 = new Questao();
 Q57.Nivel = 6;
@@ -832,7 +851,7 @@ Q57.resposta5 = "John Adams";
 Q57.respostacerta = 2;
 
 Q57.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q57);
+ListaTodasQuestoes.Add(Q57);
 
 var Q58 = new Questao();
 Q58.Nivel = 6;
@@ -845,7 +864,7 @@ Q58.resposta5 = "O Grito";
 Q58.respostacerta = 2;
 
 Q58.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q58);
+ListaTodasQuestoes.Add(Q58);
 
 var Q59 = new Questao();
 Q59.Nivel = 6;
@@ -858,7 +877,7 @@ Q59.resposta5 = "Makalu";
 Q59.respostacerta = 4;
 
 Q59.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q59);
+ListaTodasQuestoes.Add(Q59);
 
 var Q60 = new Questao();
 Q60.Nivel = 6;
@@ -871,7 +890,7 @@ Q60.resposta5 = "Translocação";
 Q60.respostacerta = 2;
 
 Q60.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q60);
+ListaTodasQuestoes.Add(Q60);
 
 var Q61 = new Questao();
 Q61.Nivel = 7;
@@ -884,7 +903,7 @@ Q61.resposta5 = "Flores";
 Q61.respostacerta = 1;
 
 Q61.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q61);
+ListaTodasQuestoes.Add(Q61);
 
 var Q62 = new Questao();
 Q62.Nivel = 7;
@@ -897,7 +916,7 @@ Q62.resposta5 = "Romanos";
 Q62.respostacerta = 2;
 
 Q62.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q62);
+ListaTodasQuestoes.Add(Q62);
 
 var Q63 = new Questao();
 Q63.Nivel = 7;
@@ -910,7 +929,7 @@ Q63.resposta5 = "Transporte de substâncias";
 Q63.respostacerta = 3;
 
 Q63.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q63);
+ListaTodasQuestoes.Add(Q63);
 
 var Q64 = new Questao();
 Q64.Nivel = 7;
@@ -923,7 +942,7 @@ Q64.resposta5 = "Augusto Pinochet";
 Q64.respostacerta = 1;
 
 Q64.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q64);
+ListaTodasQuestoes.Add(Q64);
 
 var Q65 = new Questao();
 Q65.Nivel = 7;
@@ -936,7 +955,7 @@ Q65.resposta5 = "Floresta Valdiviana";
 Q65.respostacerta = 1;
 
 Q65.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q65);
+ListaTodasQuestoes.Add(Q65);
 
 var Q66 = new Questao();
 Q66.Nivel = 7;
@@ -949,7 +968,7 @@ Q66.resposta5 = "Comunicação por telégrafo";
 Q66.respostacerta = 2;
 
 Q66.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q66);
+ListaTodasQuestoes.Add(Q66);
 
 var Q67 = new Questao();
 Q67.Nivel = 7;
@@ -962,7 +981,7 @@ Q67.resposta5 = "Milton Friedman";
 Q67.respostacerta = 2;
 
 Q67.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q67);
+ListaTodasQuestoes.Add(Q67);
 
 var Q68 = new Questao();
 Q68.Nivel = 7;
@@ -975,7 +994,7 @@ Q68.resposta5 = "Sistema hexadecimal";
 Q68.respostacerta = 1;
 
 Q68.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q68);
+ListaTodasQuestoes.Add(Q68);
 
 var Q69 = new Questao();
 Q69.Nivel = 7;
@@ -988,7 +1007,7 @@ Q69.resposta5 = "Henri Matisse";
 Q69.respostacerta = 2;
 
 Q69.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q69);
+ListaTodasQuestoes.Add(Q69);
 
 var Q70 = new Questao();
 Q70.Nivel = 7;
@@ -1001,7 +1020,7 @@ Q70.resposta5 = "Teoria da Uniformidade";
 Q70.respostacerta = 1;
 
 Q70.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q70);
+ListaTodasQuestoes.Add(Q70);
 
 var Q71 = new Questao();
 Q71.Nivel = 8;
@@ -1014,7 +1033,7 @@ Q71.resposta5 = "Fígado";
 Q71.respostacerta = 4;
 
 Q71.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q71);
+ListaTodasQuestoes.Add(Q71);
 
 var Q72 = new Questao();
 Q72.Nivel = 8;
@@ -1027,7 +1046,7 @@ Q72.resposta5 = "Sócrates";
 Q72.respostacerta = 1;
 
 Q72.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q72);
+ListaTodasQuestoes.Add(Q72);
 
 var Q73 = new Questao();
 Q73.Nivel = 8;
@@ -1040,7 +1059,7 @@ Q73.resposta5 = "Ferro";
 Q73.respostacerta = 2;
 
 Q73.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q73);
+ListaTodasQuestoes.Add(Q73);
 
 var Q74 = new Questao();
 Q74.Nivel = 8;
@@ -1053,7 +1072,7 @@ Q74.resposta5 = "Gregos";
 Q74.respostacerta = 2;
 
 Q74.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q74);
+ListaTodasQuestoes.Add(Q74);
 
 var Q75 = new Questao();
 Q75.Nivel = 8;
@@ -1066,7 +1085,7 @@ Q75.resposta5 = "Dunedin";
 Q75.respostacerta = 2;
 
 Q75.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q75);
+ListaTodasQuestoes.Add(Q75);
 
 var Q76 = new Questao();
 Q76.Nivel = 8;
@@ -1079,7 +1098,7 @@ Q76.resposta5 = "Suécia";
 Q76.respostacerta = 2;
 
 Q76.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q76);
+ListaTodasQuestoes.Add(Q76);
 
 var Q77 = new Questao();
 Q77.Nivel = 8;
@@ -1092,7 +1111,7 @@ Q77.resposta5 = "Antártica";
 Q77.respostacerta = 2;
 
 Q77.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q77);
+ListaTodasQuestoes.Add(Q77);
 
 var Q78 = new Questao();
 Q78.Nivel = 8;
@@ -1105,7 +1124,7 @@ Q78.resposta5 = "Pablo Picasso";
 Q78.respostacerta = 2;
 
 Q78.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q78);
+ListaTodasQuestoes.Add(Q78);
 
 var Q79 = new Questao();
 Q79.Nivel = 8;
@@ -1118,7 +1137,7 @@ Q79.resposta5 = "Oceano Antártico";
 Q79.respostacerta = 4;
 
 Q79.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q79);
+ListaTodasQuestoes.Add(Q79);
 var Q80 = new Questao();
 Q80.Nivel = 8;
 Q80.pergunta = "Qual é o nome do conceito que descreve a possibilidade de que exista vida em outros planetas?";
@@ -1130,7 +1149,7 @@ Q80.resposta5 = "Cosmologia";
 Q80.respostacerta = 2;
 
 Q80.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q80);
+ListaTodasQuestoes.Add(Q80);
 
 var Q81 = new Questao();
 Q81.Nivel = 9;
@@ -1143,7 +1162,7 @@ Q81.resposta5 = "Biodiversidade";
 Q81.respostacerta = 4;
 
 Q81.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q81);
+ListaTodasQuestoes.Add(Q81);
 
 var Q82 = new Questao();
 Q82.Nivel = 9;
@@ -1156,7 +1175,7 @@ Q82.resposta5 = "Difração da luz";
 Q82.respostacerta = 2;
 
 Q82.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q82);
+ListaTodasQuestoes.Add(Q82);
 
 var Q83 = new Questao();
 Q83.Nivel = 9;
@@ -1169,7 +1188,7 @@ Q83.resposta5 = "A Escola de Atenas";
 Q83.respostacerta = 3;
 
 Q83.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q83);
+ListaTodasQuestoes.Add(Q83);
 
 var Q84 = new Questao();
 Q84.Nivel = 9;
@@ -1182,7 +1201,7 @@ Q84.resposta5 = "Mario Vargas Llosa";
 Q84.respostacerta = 2;
 
 Q84.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q84);
+ListaTodasQuestoes.Add(Q84);
 
 var Q85 = new Questao();
 Q85.Nivel = 9;
@@ -1195,7 +1214,7 @@ Q85.resposta5 = "Um nome de origem africana";
 Q85.respostacerta = 1;
 
 Q85.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q85);
+ListaTodasQuestoes.Add(Q85);
 
 var Q86 = new Questao();
 Q86.Nivel = 9;
@@ -1208,7 +1227,7 @@ Q86.resposta5 = "Aumentar a produção de energia nuclear";
 Q86.respostacerta = 2;
 
 Q86.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q86);
+ListaTodasQuestoes.Add(Q86);
 var Q87 = new Questao();
 Q87.Nivel = 9;
 Q87.pergunta = "Qual é o fenômeno natural que causa a aurora boreal?";
@@ -1220,7 +1239,7 @@ Q87.resposta5 = "Nuvens de poeira";
 Q87.respostacerta = 1;
 
 Q87.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q87);
+ListaTodasQuestoes.Add(Q87);
 
 var Q88 = new Questao();
 Q88.Nivel = 9;
@@ -1233,7 +1252,7 @@ Q88.resposta5 = "Ecologia";
 Q88.respostacerta = 1;
 
 Q88.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q88);
+ListaTodasQuestoes.Add(Q88);
 
 var Q89 = new Questao();
 Q89.Nivel = 9;
@@ -1246,7 +1265,7 @@ Q89.resposta5 = "Radio";
 Q89.respostacerta = 2;
 
 Q89.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q89);
+ListaTodasQuestoes.Add(Q89);
 
 var Q90 = new Questao();
 Q90.Nivel = 9;
@@ -1259,7 +1278,7 @@ Q90.resposta5 = "Deserto de Kalahari";
 Q90.respostacerta = 3;
 
 Q90.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q90);
+ListaTodasQuestoes.Add(Q90);
 
 var Q91 = new Questao();
 Q91.Nivel = 10;
@@ -1272,7 +1291,7 @@ Q91.resposta5 = "Europa";
 Q91.respostacerta = 2;
 
 Q91.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q91);
+ListaTodasQuestoes.Add(Q91);
 
 var Q92 = new Questao();
 Q92.Nivel = 10;
@@ -1285,7 +1304,7 @@ Q92.resposta5 = "John F. Kennedy";
 Q92.respostacerta = 2;
 
 Q92.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q92);
+ListaTodasQuestoes.Add(Q92);
 
 var Q93 = new Questao();
 Q93.Nivel = 10;
@@ -1298,7 +1317,7 @@ Q93.resposta5 = "Todas as anteriores";
 Q93.respostacerta = 5;
 
 Q93.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q93);
+ListaTodasQuestoes.Add(Q93);
 
 var Q94 = new Questao();
 Q94.Nivel = 10;
@@ -1311,7 +1330,7 @@ Q94.resposta5 = "Teoria do Caos";
 Q94.respostacerta = 1;
 
 Q94.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q94);
+ListaTodasQuestoes.Add(Q94);
 
 var Q95 = new Questao();
 Q95.Nivel = 10;
@@ -1324,7 +1343,7 @@ Q95.resposta5 = "Persas";
 Q95.respostacerta = 3;
 
 Q95.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q95);
+ListaTodasQuestoes.Add(Q95);
 
 var Q96 = new Questao();
 Q96.Nivel = 10;
@@ -1337,7 +1356,7 @@ Q96.resposta5 = "O Nascimento de Vênus";
 Q96.respostacerta = 2;
 
 Q96.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q96);
+ListaTodasQuestoes.Add(Q96);
 
 var Q97 = new Questao();
 Q97.Nivel = 10;
@@ -1350,7 +1369,7 @@ Q97.resposta5 = "Deserto de Kalahari";
 Q97.respostacerta = 3;
 
 Q97.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q97);
+ListaTodasQuestoes.Add(Q97);
 
 var Q98 = new Questao();
 Q98.Nivel = 10;
@@ -1363,7 +1382,7 @@ Q98.resposta5 = "Índia";
 Q98.respostacerta = 3;
 
 Q98.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q98);
+ListaTodasQuestoes.Add(Q98);
 
 var Q99 = new Questao();
 Q99.Nivel = 10;
@@ -1376,7 +1395,7 @@ Q99.resposta5 = "Estocolmo";
 Q99.respostacerta = 1;
 
 Q99.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q99);
+ListaTodasQuestoes.Add(Q99);
 
 var Q100 = new Questao();
 Q100.Nivel = 10;
@@ -1389,7 +1408,7 @@ Q100.resposta5 = "O Sistema de Rios do Congo";
 Q100.respostacerta = 1;
 
 Q100.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-ListaQuestoes.Add(Q100);
+ListaTodasQuestoes.Add(Q100);
 
 
 
