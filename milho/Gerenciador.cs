@@ -5,9 +5,12 @@ public class Gerenciador
 
   List<Questao> ListaTodasQuestoes = new List<Questao>();
   List<Questao> ListaTodasQuestoesRespondidas = new List<Questao>();
+   public int Pontuacao { get; private set; }
+   Label labelPontuacao;
+    Label labelNivel;
   Questao questaoCorrente;
-  Label labelPontuacao;
-  Label labelNivel;
+
+
 
 
 
@@ -23,28 +26,23 @@ public class Gerenciador
 
   public void ProximaPergunta()
   {
-    varListaQuestoes = ListaTodasQuestoes.Where( d.NIvelresposta == NivelAtual).ToList();
+    var ListaQuestoes = ListaTodasQuestoes.Where( d => d.Nivel == NivelAtual).ToList();
     var numRandomico = Random.Shared.Next(0,ListaTodasQuestoes.Count -1);
 
-    QuestaoAtual = ListaTodasQuestoes [numRandomico];
+    questaoCorrente = ListaTodasQuestoes [numRandomico];
 
-    while (ListaTodasQuestoesRespondidas.Contains (QuestaoAtual))
+    while (ListaTodasQuestoesRespondidas.Contains (questaoCorrente))
     {
       numRandomico= Random.Shared.Next (0,ListaTodasQuestoes.Count -1);
-      QuestaoAtual = ListaTQuestoes [numRandomico];
+      questaoCorrente = ListaQuestoes [numRandomico];
     }
-    ListaTodasQuestoesRespondidas.Add(QuestaoAtual);
+    ListaTodasQuestoesRespondidas.Add(questaoCorrente);
 
-    QuestaoAtual.Desenhar();
-  }
-  {
-    var numRandomico = Random.Shared.Next(0, ListaTodasQuestoes.Count - 1);
-    while (ListaTodasQuestoesRespondidas.Contains(numRandomico))
-      numRandomico = Random.Shared.Next(0, ListaTodasQuestoes.Count - 1);
-    ListaTodasQuestoesRespondidas.Add(numRandomico);
-    questaoCorrente = ListaTodasQuestoes[numRandomico];
     questaoCorrente.Desenhar();
   }
+  
+    
+  
   int NivelCorrente = 0;
 
 
@@ -61,7 +59,7 @@ public class Gerenciador
       ProximaPergunta();
       if (NivelAtual== 10)
       {
-        Application.Current.MainPage = new FimJogoPage();
+        Application.Current.MainPage = new FimdoJogo();
       }
     }
     else
@@ -106,8 +104,7 @@ public class Gerenciador
     Pontuacao = 0;
     NivelAtual = 0;
     ProximaPergunta();
-    labelPontuacao.Text = "Pontuação:R$" + Pontuacao.ToString();
-    labelNivel.Text = "Nivel:" + NivelCorrente.ToString();
+   
   }
 
   void CriarQuestoes(Label labelPergunta, Button buttonResposta1, Button buttonResposta2, Button buttonResposta3, Button buttonResposta4, Button buttonResposta5)
