@@ -4,11 +4,7 @@ namespace milho
 
     public class Questao : IEquatable<Questao>
     {
-        public bool Equals (Questao q)
-        {
-            return this.Nivel == q.Nivel;
-        }
-
+     
     public string pergunta;
 
     public string resposta1;
@@ -37,7 +33,6 @@ namespace milho
     Button buttonResposta4;
 
     Button buttonResposta5;
-
 
     public void Desenhar()
     {
@@ -121,6 +116,10 @@ namespace milho
         buttonResposta5 = resposta5;
      
     }
+   public bool Equals (Questao q)
+        {
+            return this.Nivel == q.Nivel;
+        }
 
 }
 }

@@ -2,24 +2,19 @@ namespace milho;
 
 public class Gerenciador
 {
-
   List<Questao> ListaTodasQuestoes = new List<Questao>();
   List<Questao> ListaTodasQuestoesRespondidas = new List<Questao>();
-   public int Pontuacao { get; private set; }
+   public Questao questaoCorrente;
    Label labelPontuacao;
-    Label labelNivel;
-  Questao questaoCorrente;
+  Label labelNivel;
+  
 
 
 
-
-
-
-
-  public Gerenciador(Label labelPergunta, Button buttonResposta1, Button buttonResposta2, Button buttonResposta3, Button buttonResposta4, Button buttonResposta5, Label labelPontuacao, Label labelNivel)
+  public Gerenciador(Label labelPergunta, Button buttonResposta1, Button buttonResposta2, Button buttonResposta3, Button buttonResposta4, Button buttonResposta5, Label labelPont, Label labelNivel)
   {
     CriarQuestoes(labelPergunta, buttonResposta1, buttonResposta2, buttonResposta3, buttonResposta4, buttonResposta5);
-    this.labelPontuacao = labelPontuacao;
+    this.labelPontuacao = labelPont;
     this.labelNivel = labelNivel;
   }
 
@@ -27,49 +22,21 @@ public class Gerenciador
   public void ProximaPergunta()
   {
     var ListaQuestoes = ListaTodasQuestoes.Where( d => d.Nivel == NivelAtual).ToList();
-    var numRandomico = Random.Shared.Next(0,ListaTodasQuestoes.Count -1);
+    var numRandomico = Random.Shared.Next(0,ListaQuestoes.Count -1);
 
     questaoCorrente = ListaTodasQuestoes [numRandomico];
 
     while (ListaTodasQuestoesRespondidas.Contains (questaoCorrente))
     {
-      numRandomico= Random.Shared.Next (0,ListaTodasQuestoes.Count -1);
+      numRandomico= Random.Shared.Next (0,ListaQuestoes.Count -1);
       questaoCorrente = ListaQuestoes [numRandomico];
     }
+
     ListaTodasQuestoesRespondidas.Add(questaoCorrente);
 
     questaoCorrente.Desenhar();
   }
   
-    
-  
-  int NivelCorrente = 0;
-
-
-
-  public async void VerificarCorreto(int resposta)
-  {
-    if (questaoCorrente!.VerifiicarResposta(resposta))
-    {
-      await Task.Delay(1500);
-      labelPontuacao.Text = "Pontuação:R$" + Pontuacao.ToString();
-    labelNivel.Text = "Nivel:" + NivelAtual.ToString();
-      AdicionaPontuacao(NivelAtual);
-       NivelAtual++;       
-      ProximaPergunta();
-      if (NivelAtual== 10)
-      {
-        Application.Current.MainPage = new FimdoJogo();
-      }
-    }
-    else
-    {
-      await App.Current.MainPage.DisplayAlert("Você errou", "Desistir é para os fracos o ideal é nem tentar,mas você pode tentar de novo", "tentar novante");
-      Inicializar();
-    }
-   
-
-
     void AdicionaPontuacao(int n)
     {
       if (n == 1)
@@ -90,20 +57,53 @@ public class Gerenciador
         Pontuacao = 20000;
       else if (n == 9)
         Pontuacao = 500000;
+        
       else if (n == 10)
         Pontuacao = 100000;
     }
 
-  }
+  
+    
 
-  public int Pontuacao { get; private set; }
-  int NivelAtual = 0;
+
+  public async void VerificarCorreto(int resposta)
+  {
+    if (questaoCorrente!.VerifiicarResposta(resposta))
+    {
+      await Task.Delay(1500);
+      AdicionaPontuacao(NivelAtual);
+       NivelAtual++;       
+      ProximaPergunta();
+      labelPontuacao.Text = "Pontuação:R$" + Pontuacao.ToString();
+      labelNivel.Text = "Nivel:" + NivelAtual.ToString();
+
+      if (NivelAtual== 10)
+      {
+        Application.Current.MainPage = new FimdoJogo();
+      }
+    }
+    else
+    {
+      await App.Current.MainPage.DisplayAlert("Você errou", "Desistir é para os fracos o ideal é nem tentar,mas você pode tentar de novo", "tentar novante");
+       Application.Current.MainPage = new MainPage();
+     
+    }
+   
+
+  }
+     public int Pontuacao { get; private set; }
+
+    int NivelAtual = 1;
+
 
   void Inicializar()
   {
-    Pontuacao = 0;
-    NivelAtual = 0;
-    ProximaPergunta();
+    labelPontuacao.Text = "Pontuação: R$" + Pontuacao.ToString();
+        labelNivel.Text = "Nivel:" + NivelAtual.ToString();
+        Pontuacao = 0;
+        NivelAtual = 1;
+        ListaTodasQuestoesRespondidas.Clear();
+        ProximaPergunta();
    
   }
 
@@ -1408,7 +1408,16 @@ Q100.ConfigurarEstruturaDesenho(labelPergunta, buttonResposta1, buttonResposta2,
 ListaTodasQuestoes.Add(Q100);
 
 
+ProximaPergunta();
+
 
   }
+  }
+ 
 
-}
+
+
+
+
+
+
