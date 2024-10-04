@@ -53,6 +53,11 @@ namespace milho
         this.buttonResposta4!.TextColor     = Colors.White;
         this.buttonResposta5!.BackgroundColor= Colors.DarkBlue;
         this.buttonResposta5!.TextColor     = Colors.White;
+        buttonResposta1.IsVisible = true;
+        buttonResposta2.IsVisible = true;
+        buttonResposta3.IsVisible = true;
+        buttonResposta4.IsVisible = true;
+        buttonResposta5.IsVisible = true;
     }
 
     private Button buttonEscolhido(int respostaescolhida)
@@ -118,7 +123,7 @@ namespace milho
     }
    public bool Equals (Questao q)
         {
-            return this.Nivel == q.Nivel;
+            return this.Nivel == q.Nivel &&  this.pergunta == q.pergunta;
         }
 
 }

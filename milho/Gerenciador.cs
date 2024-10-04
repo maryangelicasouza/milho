@@ -18,7 +18,10 @@ public class Gerenciador
     this.labelNivel = labelNivel;
   }
 
-
+public Questao GetquestaoCorrente()
+{
+  return questaoCorrente;
+}
   public void ProximaPergunta()
   {
     var ListaQuestoes = ListaTodasQuestoes.Where( d => d.Nivel == NivelAtual).ToList();

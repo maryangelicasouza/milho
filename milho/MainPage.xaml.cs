@@ -35,6 +35,27 @@ public partial class MainPage : ContentPage
 	{
 		gerenciador.VerificarCorreto(5);
 	}
+	void OnAjudaRerirarCliecked(object s, EventArgs e)
+	{
+		var ajuda =new RetiraErrada();
+		ajuda.ConfiguraDesenho(Button1, Button2, Button3, Button4, Button5 );
+		ajuda.RealizaAjuda (gerenciador.GetquestaoCorrente());
+		( s as ImageButton). IsVisible=false;
+	}
+	void OnPularCliecked(object sender, EventArgs e)
+	{
+		gerenciador.ProximaPergunta();
+		ButtonPula.IsVisible = false;
+	}
+    
+	void Universitarios(object s, EventArgs e)
+	{
+		var ajuda =new Universitarios();
+		ajuda.ConfiguraDesenho(Button1, Button2, Button3, Button4, Button5 );
+		ajuda.RealizaAjuda (gerenciador.GetquestaoCorrente());
+		( s as ImageButton). IsVisible=false;
+	}
+
 
 }
 
