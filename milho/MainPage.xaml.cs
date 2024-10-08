@@ -42,11 +42,45 @@ public partial class MainPage : ContentPage
 		ajuda.RealizaAjuda (gerenciador.GetquestaoCorrente());
 		( s as ImageButton). IsVisible=false;
 	}
-	void OnPularCliecked(object sender, EventArgs e)
+	
+	int pulou =0;
+	void OnPularCliecked(object s, EventArgs e)
+	{
+		if (pulou == 0)
+		( s as ImageButton). IsVisible = false;
+		else 
+	
 	{
 		gerenciador.ProximaPergunta();
-		ButtonPula.IsVisible = false;
+		pulou ++;
 	}
+	}
+	int pulou1 =1;
+	void OnPularCliecked2(object s, EventArgs e)
+	{
+		if (pulou1 == 1)
+		( s as ImageButton). IsVisible = false;
+		else 
+	
+	{
+		gerenciador.ProximaPergunta();
+		pulou1 ++;
+	}
+	}
+	int pulou2 =2;
+	void OnPularCliecked3(object s, EventArgs e)
+	{
+		if (pulou2 == 2)
+		( s as ImageButton). IsVisible = false;
+		else 
+	
+	{
+		gerenciador.ProximaPergunta();
+		pulou2 ++;
+	}
+	}
+	
+	
     
 	void Universitarios(object s, EventArgs e)
 	{

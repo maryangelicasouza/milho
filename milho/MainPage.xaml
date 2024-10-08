@@ -103,12 +103,27 @@
                            BackgroundColor="White"
                            Grid.Row="8"
                            Grid.Column="1"/>
-              <ImageButton Source="pula.png"
+              <ImageButton Source="pula.png" 
                            Padding="10,10,10,10"
                            x:Name="ButtonPula"
                            Clicked="OnPularCliecked"
                            BackgroundColor="White"
                            Grid.Row="8"
                            Grid.Column="2"/>
+         <ImageButton Source="pula2.png" 
+                           Padding="10,10,10,10"
+                           x:Name="ButtonPula2"
+                           Clicked="OnPularCliecked2"
+                           BackgroundColor="White"
+                           Grid.Row="8"
+                           Grid.Column="2"/>
+                             <ImageButton Source="pula3.png" 
+                           Padding="10,10,10,10"
+                           x:Name="ButtonPula3"
+                           Clicked="OnPularCliecked3"
+                           BackgroundColor="White"
+                           Grid.Row="8"
+                           Grid.Column="2"/>
+                              
        </Grid>
 </ContentPage>
